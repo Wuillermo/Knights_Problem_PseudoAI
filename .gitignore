@@ -41,9 +41,8 @@ results/
 output/
 data/
 
-# Ignore environment files (optional, if using different envs)
+# Ignore environment files
 environment.yml
-requirements.txt
 
 # Ignore compiled files (optional, if using Cython or other compiled Python)
 *.so
