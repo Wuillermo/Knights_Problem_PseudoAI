@@ -109,7 +109,7 @@ Here we have the two tables of B&B and A* combined in order to compare them.
 As seen before A* is always a better option over B&B thanks to the addition of the heuristic value but it can be harder to implement in 
 more complex settings where the calculation of a heuristic is not as simple.
 
-*Authors*
+**Authors**
 
 This project is an addaptation and improvement from a practical assignment at the Universidad Politecnica de Madrid on 2024 and made by 4 people 
 including myself:
