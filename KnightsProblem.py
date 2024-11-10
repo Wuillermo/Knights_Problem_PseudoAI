@@ -353,64 +353,7 @@ Use these pre-programmed functions to run the experiments and summarise the code
 ### Timer
 """
 
-############################# DO NOT ALTER #################################
-#                                                                          #
-import time
-
-def timer(func):
-    def wrapper(*args, **kwargs):
-        start = time.time()
-        res = func(*args, **kwargs)
-        end = time.time()
-        print("Executime time: ", end - start, " seconds")
-        return res
-    return wrapper
-#                                                                          #
-############################# DO NOT ALTER #################################
-
-# This code times the execution of any function
-
-"""### Wrappers"""
-
-############################# DO NOT ALTER #################################
-#                                                                          #
-@timer
-def search_horse_byb(initial_board):
-    return search(initial_board, expand, cost, None, order_byb, is_solution)
-
-@timer
-def search_horse_astar(initial_board, heuristic):
-    return search(initial_board, expand, cost, heuristic, order_astar, is_solution)
-#                                                                          #
-############################# DO NOT ALTER #################################
-
 """### Experiment Launcher"""
-
-CONF = {'2x2': (2, 2),
-        '3x3': (3, 3),
-        '3x5': (3, 5),
-        '5x5': (5, 5),
-        '8x8': (8, 8),
-        }
-
-def measure_solution(board):
-    # Returns the number of horses in the solution
-    number_of_knights = np.sum(board == 1)
-
-    return number_of_knights
-
-def launch_experiment(configuration, heuristic=None):
-    conf = CONF[configuration]
-    print(f"Running {'A*' if heuristic else 'B&B'} with {configuration} board")
-    if heuristic:
-        sol = search_horse_astar(initial_state(*conf), heuristic)
-    else:
-        sol = search_horse_byb(initial_state(*conf))
-    n_c = measure_solution(sol)
-    print(f"Solution found: \n{sol}")
-    print(f"Number of horses in solution: {n_c}")
-
-    return sol, n_c
 
 """## Executions
 This space is reserved for algorithm executions. The use of the launch_experiment method is recommended.
@@ -418,16 +361,6 @@ This space is reserved for algorithm executions. The use of the launch_experimen
 
 """### Branch & Bound"""
 
-launch_experiment('2x2')
-print()
-launch_experiment('3x3')
-print()
-launch_experiment('3x5')
-print()
-launch_experiment('5x5')
-print()
-#launch_experiment('8x8')
-print()
 
 #it's not going to end, cant find the 8x8 in less than 5min
 
@@ -456,17 +389,6 @@ so the 8x8 would porbably even take hours.
 
 ### A*
 """
-
-launch_experiment('2x2', heuristic=heuristic_1)
-print()
-launch_experiment('3x3', heuristic=heuristic_1)
-print()
-launch_experiment('3x5', heuristic=heuristic_1)
-print()
-launch_experiment('5x5', heuristic=heuristic_1)
-print()
-#launch_experiment('8x8', heuristic=heuristic_1)
-print()
 
 #it's not going to end, cant find the 8x8 in less than 5min
 
