@@ -1,35 +1,5 @@
-"""
 
-The aim is to solve a variant of the chess queens problem, using knights instead to find out how many knights can be present on a chessboard 
-without threatening each other. Any configuration of knights on the board is valid as long as they do not threaten each other, but you want 
-to find the maximum number of knights. Below are several examples on a 3x3 chessboard:
-
-Optimal and Valid   Valid   Not valid
-K·K                 K·K     K··
-·K·                 ···     ··K
-K·K                 K··     ·K·
-
-The aim of the algorithm is to find a valid configuration with as many horses as possible.
-
-It is possible that the problem configuration is too large for some of the algorithms. As a rule of thumb, if the algorithm takes more than 5 
-minutes to complete its execution, we can declare that the algorithm has not found a solution in a reasonable time (and we indicate this in 
-the analysis of results).
-
-* Various configurations are provided:
-    * A **2x2** board,
-    * A **3x3** board,
-    * A **3x5** board,
-    * A **5x5** board,
-    * A **8x8** board.
-* Two algorithms are to be applied:
-    * Branch & Bound: We want to obtain an optimal solution, (maximum number of horses)
-    * A-Star: It's provided at least one admissible heuristic for finding an optimal solution. In this report, the admissibility of the 
-      heuristic must be justified and demonstrated.
-
-* The use of external libraries is not allowed except for numpy and pandas.
-"""
-
-""" ## State management """
+""" ## Initial State """
 
 ### Initial state
 
@@ -44,7 +14,7 @@ def initial_state(M, N):
     return np.zeros((M, N), dtype=int)
 
 
-"""### State expansion"""
+"""### State expansion """
 
 # Possible movements of a knight
 movimientos = [(2, 1), (1, 2), (-1, 2), (-2, 1), (-2, -1), (-1, -2), (1, -2), (2, -1)]
@@ -81,7 +51,7 @@ def place(board, x, y):
 # - A data structure with the possible movements for a horse
 
 
-"""### Solution reached"""
+"""### Solution reached """
 
 def is_solution(board):
     # Check if a board is a solution
@@ -96,10 +66,9 @@ def is_solution(board):
     # astype makes it an integer
     return True if np.sum(board == 1) == np.ceil((M * N) / 2).astype(int) else False
 
-
-
     # Make all necessary checks to determine
     # if the board is a solution
+
 
 """ ## Metrics """
 
@@ -125,10 +94,11 @@ def cost(path): # path must contain MULTIPLE boards
 # - Remember that A* and B&B work by minimising cost.
 # - Can we tackle this problem in another way? Maximising the occupied squares does NOT work...
 
-"""### Heuristic(s)"""
+"""### Heuristic(s) """
 
 heuristic_cache = {}
 
+# Valid heuristic
 def heuristic_1(board):
     # Calculate a heuristic for a board here
      M, N = board.shape  # Dimensions of the board
@@ -200,24 +170,7 @@ def heuristic_3(board):
     # Calculate a heuristic for a board here
 
      return heuristic_value
-
 # - As with cost, the smaller the value of the heuristic the better, since it is intended to be minimised.
-
-"""#### Admisibility of the heuristic
-
-As we can se we have several heuristics, each of them focusing different points.
-
-First one = 3*(max_knights - knights_on_board)
-
-Second one = 2 * safe_squares - attacked_squares
-
-Third one = max_knights + safe_squares - knights_on_board
-
-The first one is multiplied by 3, this is made with the intention to exaggerate the heuristic value itself when its bad, 
-making better boards have a much better(lower in this case since its an heuristic) score.
-We can safely assume that this heuristic is admissible, since it only accounts for the remaining knights to be placed 
-and doesnt overestimate other complex calculations the algorithm might take
-"""
 
 
 """ ## Search Algorithm """
@@ -238,7 +191,6 @@ def generate_unique_transformations(board):
     # Convert to hashable tuples and deduplicate
     unique_transforms = set(tuple(trans.flat) for trans in transformations)
     return unique_transforms
-
 
 def prune(path_list):
     unique_paths = []
@@ -344,73 +296,14 @@ def search(initial_board, expansion, cost, heuristic, ordering, solution):
     return solution_path if solution_path is not None else None # Return only the solution, not the solution path
 
 
-"""# Experiments
-Use the `search_horse_byb` and `search_horse_byb` functions to extract results.
-
-## Utilities
-Use these pre-programmed functions to run the experiments and summarise the code.
-
-### Timer
 """
-
-"""### Experiment Launcher"""
-
-"""## Executions
-This space is reserved for algorithm executions. The use of the launch_experiment method is recommended.
-"""
-
-"""### Branch & Bound"""
-
-
-#it's not going to end, cant find the 8x8 in less than 5min
-
-"""**Results for Branch & Bound**
-
-The B&B table and a critical assessment of the results.
-
-| Board | Algorithm | Time    | Horses |
-|-------|-----------|---------|--------|
-| 2x2   | B&B       | 0.002   | 4      |
-| 3x3   | B&B       | 0.025   | 5      |
-| 3x5   | B&B       | 0.062   | 8      |
-| 5x5   | B&B       | 237.637 | 13     |
-| 8x8   | B&B       | NONE    | NONE   |
-
-The times have been aproximated.
-
-Now that we have the results in a table we are able to do an analysis of the time and the cuantity of horses.
-Three of the tables, 2x2, 3x3 and 3x5 have similar times and the number of horses is raising progressively. This is before 5x5 
-comes into action, this iteration suddenly increases the time substantially, but still finding the 13 horses of the solution. 
-This show how exponential the growth is.
-Finally we observe that the 8x8 is not done by any means, this is because the 5x5 already takes an exceedingly amount of time, 
-so the 8x8 would porbably even take hours.
-
-
 
 ### A*
 """
 
 #it's not going to end, cant find the 8x8 in less than 5min
 
-"""**Results for A-Star**
-
-The A* table and a critical assessment of the results.
-
-| Board | Algorithm | Time  | Horses |
-|-------|-----------|-------|--------|
-| 2x2   | A*        | 0.001 | 4      |
-| 3x3   | A*        | 0.004 | 5      |
-| 3x5   | A*        | 0.031 | 8      |
-| 5x5   | A*        | 0.145 | 13     |
-| 8x8   | A*        | NONE  | NONE   |
-
-The times have been aproximated.
-Taking a first look at the table, we see that we have pretty good times for the algorithm. The first one, 2x2 is very fast finding 
-4 horses, the second one, 3x3 takes 0.004 seconds in finding 5 horses, the next one takes 0.031 still fast and finding 8 horses.
-The last one that this algorithm is able to accomplish is the 5x5 taking only 0.145 seconds, so we can conclude that this algorithm 
-is satisfactorily fast and even if it still escalates very quickly looking at the long time 8x8 takes, we can think that the 
-algorithm greatly improves from the byb thanks to the inclusion of the heuristic value.
-
+"""
 ## Conclusions
 
 The comparison table between A* and B&B, add a critical assessment of the results, specifying the differences you find between both 
