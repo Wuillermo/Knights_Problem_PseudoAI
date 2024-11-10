@@ -43,10 +43,6 @@ def initial_state(M, N):
     # Creates an empty board using 0s
     return np.zeros((M, N), dtype=int)
 
-# Example of the use of the initial state function
-board = initial_state(3, 3)
-print(board)
-
 
 """### State expansion"""
 
@@ -83,8 +79,6 @@ def place(board, x, y):
 # - A function that copies an entire board
 # - A function that places a horse at a given position in i, j
 # - A data structure with the possible movements for a horse
-
-expand(board) # Must return a list of boards
 
 
 """### Solution reached"""
@@ -208,8 +202,6 @@ def heuristic_3(board):
      return heuristic_value
 
 # - As with cost, the smaller the value of the heuristic the better, since it is intended to be minimised.
-# - You can try non-admissible heuristics, but at least one of them must be admissible to score.
-
 
 """#### Admisibility of the heuristic
 
