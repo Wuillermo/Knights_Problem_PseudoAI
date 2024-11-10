@@ -49,13 +49,14 @@ The first one is always grater than 1 and it is multiplied by 3, with the intent
 making better boards have a much better (lower in this case since a heuristic is always minimised) score.
 
 **Regarding addmisibility**
+
 We can safely assume that this heuristic is admissible, since it only accounts for the remaining knights to be placed and does not 
 overestimate other complex calculations the algorithm might take. Also the problem being solved is simple enought to make such asumptions 
 since it's result is always determisintic regardless of the board size.
 
 ## Results
+
 **B&B**
-The B&B table and a critical assessment of the results.
 
 | Board | Algorithm | Time    | Horses |
 |-------|-----------|---------|--------|
@@ -76,7 +77,6 @@ The B&B algorithm is a great one for small simple problems or ones that have a v
 costs. When it comes to bigger or more generic problems it is very slow a costly and not really recomended.
 
 **A\***
-The A* table and a critical assessment of the results.
 
 | Board | Algorithm | Time  | Horses |
 |-------|-----------|-------|--------|
@@ -110,9 +110,10 @@ As seen before A* is always a better option over B&B thanks to the addition of t
 more complex settings where the calculation of a heuristic is not as simple.
 
 *Authors*
+
 This project is an addaptation and improvement from a practical assignment at the Universidad Politecnica de Madrid on 2024 and made by 4 people 
 including myself:
 *   Member 1
 *   Member 2
-*   Menber 3
+*   Member 3
 *   Wuillermo (Guillermo Vergara)
