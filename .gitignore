@@ -33,9 +33,6 @@ Thumbs.db
 # Ignore timing result files if applicable
 *.out
 
-# Ignore any outputs or experiment result files
-*.txt
-
 # Ignore results from running the program
 results/
 output/
