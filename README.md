@@ -84,7 +84,7 @@ costs. When it comes to bigger or more generic problems it is very slow a costly
 | 3x3   | A*        | 0.004 | 5      |
 | 3x5   | A*        | 0.031 | 8      |
 | 5x5   | A*        | 0.145 | 13     |
-| 8x8   | A*        | NONE  | NONE   |
+| 8x8   | A*        | >5min | >5min  |
 
 Taking a first look at the table, we see that we have pretty good times for the algorithm.
 The last one that this algorithm is able to accomplish is the 5x5 taking only 0.145 seconds, so we can conclude that this algorithm 
