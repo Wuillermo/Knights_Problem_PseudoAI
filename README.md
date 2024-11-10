@@ -1,4 +1,4 @@
-# *The Knights Problem using AI*
+# *The Knights Problem using Branch & Bound and A\**
 
 Disclaimer: This code is a college group practical assignment that has been addapted to apply and practice some python proyect structures and
 knowledges, and also wit hthe aim of optimizing its functionality.
