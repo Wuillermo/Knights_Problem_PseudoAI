@@ -115,5 +115,5 @@ This project is an addaptation and improvement from a practical assignment at th
 including myself:
 *   Member 1
 *   Member 2
-*   Member 3
+*   [Jose Belchí](https://github.com/josebelchi)
 *   Wuillermo (Guillermo Vergara)
