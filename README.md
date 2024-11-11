@@ -115,5 +115,5 @@ This project is an addaptation and improvement from a practical assignment at th
 including myself:
 *   Wuillermo (Guillermo Vergara)
 *   [Jose Belchí](https://github.com/josebelchi)
-*   Alex
+*   [Alex](https://github.com/acorcobado)
 *   Marco
