@@ -294,39 +294,3 @@ def search(initial_board, expansion, cost, heuristic, ordering, solution):
 
     # 7 - Return the path if it is a solution, otherwise return None
     return solution_path if solution_path is not None else None # Return only the solution, not the solution path
-
-
-"""
-
-### A*
-"""
-
-#it's not going to end, cant find the 8x8 in less than 5min
-
-"""
-## Conclusions
-
-The comparison table between A* and B&B, add a critical assessment of the results, specifying the differences you find between both 
-search algorithms, advantages of using one over the other, the effect of the problem configuration, etc.
-
-| **Board** | **Algorithm** | **Time B&B** | **Time A*** | **Horses B&B** | **Horses A*** |
-|:---------:|:-------------:|:------------:|:-----------:|:--------------:|:-------------:|
-|    2x2    |  B&B and  A*  |     0.002    |    0.001    |        4       |       4       |
-|    3x3    |  B&B and  A*  |     0.025    |    0.004    |        5       |       5       |
-|    3x5    |  B&B and  A*  |     0.062    |    0.031    |        8       |       8       |
-|    5x5    |  B&B and  A*  |    237.637   |    0.145    |       13       |       13      |
-|    8x8    |  B&B and  A*  |     NONE     |     NONE    |      NONE      |      NONE     |
-
-
-Here we have the two tables of B&B and A* combined in order to compare them.
-Starting with the 2x2, we observe similar times and this continous to be like this for the 3x3 and the 3x5. The latter let us see that 
-B&B sometimes could even takes less time than the A\* during tests, wich could be a result of the inefficient calculation of the heuristic 
-for such a small problem.
-
-The real difference occurs in the 5x5, here we notice the abysmal difference between the two algorithms, while B&B takes the staggering 
-time of 237.637 seconds, A\* is able to do it in barely half a second, precisely in 0.584 seconds.
-
-Concluding, A* is more optimal for higher numbers of rows and columns boards than B&B, although B&B is better for small ones. This is 
-caused due to the heuristic function, which helps a lot in the process of seleccting the best path. Though it takes more time in the 
-small one, on the bigger ones makes it exponentially faster since it wastes less time on the worst boards.
-"""
