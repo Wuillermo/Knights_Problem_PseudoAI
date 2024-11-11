@@ -60,10 +60,10 @@ since it's result is always determisintic regardless of the board size.
 
 | Board | Algorithm | Time    | Horses |
 |-------|-----------|---------|--------|
-| 2x2   | B&B       | 0.002   | 4      |
-| 3x3   | B&B       | 0.025   | 5      |
-| 3x5   | B&B       | 0.062   | 8      |
-| 5x5   | B&B       | 237.637 | 13     |
+| 2x2   | B&B       | 0.001   | 4      |
+| 3x3   | B&B       | 0.010   | 5      |
+| 3x5   | B&B       | 0.023   | 8      |
+| 5x5   | B&B       | 124.1   | 13     |
 | 8x8   | B&B       | >5min   | >5min  |
 
 The cuantity of horses doesnt need any analysis since it's determined by the board so if we find a solution we know its going to have 
@@ -81,9 +81,9 @@ costs. When it comes to bigger or more generic problems it is very slow a costly
 | Board | Algorithm | Time  | Horses |
 |-------|-----------|-------|--------|
 | 2x2   | A*        | 0.001 | 4      |
-| 3x3   | A*        | 0.004 | 5      |
-| 3x5   | A*        | 0.031 | 8      |
-| 5x5   | A*        | 0.145 | 13     |
+| 3x3   | A*        | 0.002 | 5      |
+| 3x5   | A*        | 0.012 | 8      |
+| 5x5   | A*        | 0.059 | 13     |
 | 8x8   | A*        | >5min | >5min  |
 
 Taking a first look at the table, we see that we have pretty good times for the algorithm.
@@ -97,13 +97,13 @@ and adds the problem of proving it's addmisibility.
 
 **Conclusions**
 
-| **Board** | **Algorithm** | **Time B&B** | **Time A*** | **Horses B&B** | **Horses A*** |
-|:---------:|:-------------:|:------------:|:-----------:|:--------------:|:-------------:|
-|    2x2    |  B&B and  A*  |     0.002    |    0.001    |        4       |       4       |
-|    3x3    |  B&B and  A*  |     0.025    |    0.004    |        5       |       5       |
-|    3x5    |  B&B and  A*  |     0.062    |    0.031    |        8       |       8       |
-|    5x5    |  B&B and  A*  |    237.637   |    0.145    |       13       |       13      |
-|    8x8    |  B&B and  A*  |     NONE     |     NONE    |      NONE      |      NONE     |
+| **Board** | **Algorithm** | **Time B&B** | **Time A*** |
+|:---------:|:-------------:|:------------:|:-----------:|
+|    2x2    |  B&B and  A*  |     0.001    |    0.001    |
+|    3x3    |  B&B and  A*  |     0.010    |    0.002    |
+|    3x5    |  B&B and  A*  |     0.023    |    0.012    |
+|    5x5    |  B&B and  A*  |     124.1    |    0.059    |
+|    8x8    |  B&B and  A*  |     NONE     |     NONE    |
 
 Here we have the two tables of B&B and A* combined in order to compare them.
 As seen before A* is always a better option over B&B thanks to the addition of the heuristic value but it can be harder to implement in 
@@ -113,7 +113,7 @@ more complex settings where the calculation of a heuristic is not as simple.
 
 This project is an addaptation and improvement from a practical assignment at the Universidad Politecnica de Madrid on 2024 and made by 4 people 
 including myself:
-*   Member 1
-*   Member 2
-*   [Jose Belchí](https://github.com/josebelchi)
 *   Wuillermo (Guillermo Vergara)
+*   [Jose Belchí](https://github.com/josebelchi)
+*   Alex
+*   Marco
