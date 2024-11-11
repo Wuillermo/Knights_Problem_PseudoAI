@@ -1,8 +1,6 @@
 
 """ ## Initial State """
 
-### Initial state
-
 import numpy as np
 
 # 0 = Safe square
@@ -21,13 +19,10 @@ movimientos = [(2, 1), (1, 2), (-1, 2), (-2, 1), (-2, -1), (-1, -2), (1, -2), (2
 
 def expand(board):
     boards = [] # Create an empty list of boards
-    M, N = board.shape # Create the M and N variables of the board to have easy access to them
     empty_positions = np.argwhere(board == 0) # Create a list of empty positions
 
     for i, j in empty_positions: # Loop through each empty position
-      boards.append(place(board, i, j))
-
-    # Creates a list of boards with all possible moves
+      boards.append(place(board, i, j)) # Creates a list of boards with all possible moves    
 
     return boards # Return a list of boards
 
@@ -46,10 +41,6 @@ def place(board, x, y):
 
   return copied_board
 
-# - A function that copies an entire board
-# - A function that places a horse at a given position in i, j
-# - A data structure with the possible movements for a horse
-
 
 """### Solution reached """
 
@@ -57,8 +48,8 @@ def is_solution(board):
     # Check if a board is a solution
     M, N = board.shape  # Dimensions of the board
 
+    # A 2x2 board has always 4 knights as solution
     if M == 2 and N == 2:
-      # A 2x2 board has always 4 knights as solution
       return True if np.sum(board == 1) == 4 else False
 
     # Other boards have this formula as max knights
@@ -66,19 +57,14 @@ def is_solution(board):
     # astype makes it an integer
     return True if np.sum(board == 1) == np.ceil((M * N) / 2).astype(int) else False
 
-    # Make all necessary checks to determine
-    # if the board is a solution
-
 
 """ ## Metrics """
 
-### Cost function
-
 costs_dic = {}
 
-def cost(path): # path must contain MULTIPLE boards
+### Cost function
+def cost(path):
     # Calculate the cost of a path
-    # This should be possible: board = path[-1]
      board = path[-1]
 
      total_knights = np.sum(board == 1)
@@ -94,7 +80,7 @@ def cost(path): # path must contain MULTIPLE boards
 # - Remember that A* and B&B work by minimising cost.
 # - Can we tackle this problem in another way? Maximising the occupied squares does NOT work...
 
-"""### Heuristic(s) """
+# Heuristic functions
 
 heuristic_cache = {}
 
@@ -122,17 +108,11 @@ def heuristic_1(board):
 
      return heuristic_value
 
-# Other heuristics
+# Other invalid heuristics
 
 def heuristic_2(board):
     # Calculate a heuristic for a board
      M, N = board.shape  # Dimensions of the board
-     max_knights = 0
-
-     if M == 2 and N == 2:
-      max_knights = 4
-     else:
-      max_knights = np.ceil((M * N) / 2).astype(int)
 
      board_key = np.packbits(board.flatten() != 0).tobytes()
      if board_key in heuristic_cache:
@@ -167,19 +147,17 @@ def heuristic_3(board):
      heuristic_value = max_knights + safe_squares - knights_on_board
      heuristic_cache[board_key] = heuristic_value
 
-    # Calculate a heuristic for a board here
-
      return heuristic_value
 # - As with cost, the smaller the value of the heuristic the better, since it is intended to be minimised.
 
 
-""" ## Search Algorithm """
+""" ## Prunning """
 
 ### Prunning
 
 # Check the symmetries to see if they are identical to remove unnecessary paths.
 def generate_unique_transformations(board):
-    #Generate a minimal set of unique transformations for symmetry checking.
+    #Generate a set of unique transformations for symmetry checking.
     transformations = [
         board,
         np.rot90(board, 1),  # 90-degree rotation
@@ -215,9 +193,6 @@ def prune(path_list):
 
 """ ### Ordering """
 
-# *args and **kwargs are variable arguments, if the argument is not recognized it is stored in these variables.
-# They are used here to ignore unnecessary arguments.
-
 # Used to give you the board in a flat format making it a possible key for a dictionary
 def _get_bitboard_key(board):
     return np.packbits(board.flatten() != 0).tobytes()
@@ -225,6 +200,7 @@ def _get_bitboard_key(board):
 costs_dic = {}
 costs_dic_astar = {}
 
+# Order for A*
 def order_astar(old_paths, new_paths, c, h, *args, **kwargs):
     all_paths = old_paths + new_paths
 
@@ -244,6 +220,7 @@ def order_astar(old_paths, new_paths, c, h, *args, **kwargs):
     sorted_paths = sorted(evaluated_paths, key=lambda x: x[1] + x[2])  # using cost and heuristic directly from the evaluated list
     return prune([x[0] for x in sorted_paths])  # Return the list of paths sorted and pruned according to A*
 
+# Order for ByB
 def order_byb(old_paths, new_paths, c, *args, **kwargs):
   all_paths = old_paths + new_paths
 
@@ -268,9 +245,10 @@ def search(initial_board, expansion, cost, heuristic, ordering, solution):
 
     paths = [[initial_board]] # Create the list of paths
     solution_path = None # This is the solution state
-    costs_dic = {} # initialize the costs dictionary for the optimization of the ordering function on byb
-    costs_dic_astar = {} # initialize the costs dictionary for the optimization of the ordering function on astar
-    heuristic_cache = {} # initialize the heuristics dictionary for the optimization of the ordering function on astar
+    # initialize the costs and heuristics dictionaries for the optimization of the ordering functions
+    costs_dic = {} 
+    costs_dic_astar = {}
+    heuristic_cache = {}
 
     # 1 - As long as there are paths and no solution has been found
     while paths and solution_path is None:
